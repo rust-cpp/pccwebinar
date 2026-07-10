@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CalendarDays, Clock3, Globe2 } from "lucide-react";
+import { CalendarDays, Clock3, ExternalLink, Globe2, MessageCircle } from "lucide-react";
 import { RegistrationForm } from "@/components/registration-form";
 
 export default function Home() {
@@ -28,7 +28,12 @@ export default function Home() {
           <p className="text-sm font-bold uppercase tracking-[.2em] text-[#52675a]">Registration</p>
           <h2 className="mt-3 max-w-xl text-4xl font-semibold leading-[.98] tracking-[-.05em] sm:text-5xl">Confirm your place at the session.</h2>
           <p className="mt-4 max-w-xl text-base leading-6 text-[#526158]">Share a few details about yourself and your organization. You will be added to the confirmed attendee list.</p>
-          <div className="mt-5 border-t-2 border-[#173c29]/20 pt-5"><RegistrationForm/></div>
+          <div className="mt-4 flex items-center gap-4 rounded-xl border-2 border-[#1c6b43] bg-[#dcebdc] p-4">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#176b42] text-white"><MessageCircle className="h-5 w-5"/></div>
+            <div className="min-w-0 flex-1"><p className="text-base font-bold text-[#123d29]">Follow the PCC WhatsApp Channel</p><p className="mt-1 text-sm leading-5 text-[#365746]">The webinar joining link will be shared there. Only NGOs registered through this form will be allowed to attend.</p></div>
+            <a href="https://whatsapp.com/channel/0029Vb7jNfsFSAswgqgwBp3R" target="_blank" rel="noopener noreferrer" className="flex shrink-0 items-center gap-2 rounded-md bg-[#176b42] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#105536]">Follow now<ExternalLink className="h-4 w-4"/></a>
+          </div>
+          <div className="mt-4 border-t-2 border-[#173c29]/20 pt-4"><RegistrationForm/></div>
         </div>
       </aside>
     </section>
