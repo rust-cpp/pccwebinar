@@ -21,7 +21,7 @@ export async function registerNgo(_: FormState, formData: FormData): Promise<For
     return { ok: false, message: "Please complete all required fields with a valid phone number and email." };
   try {
     await getDatabase();
-    await Webinar.updateOne({ slug: currentWebinar.slug }, { $setOnInsert: currentWebinar }, { upsert: true });
+    await Webinar.updateOne({ slug: currentWebinar.slug }, { $set: currentWebinar }, { upsert: true });
     const duplicate = await Registration.findOne({ webinarSlug: currentWebinar.slug, $or: [{ contactNumber }, { email }] }, { contactNumber: 1, email: 1 }).lean();
     if (duplicate?.contactNumber === contactNumber) return { ok: false, message: "This phone number is already registered for this webinar." };
     if (duplicate?.email === email) return { ok: false, message: "This email address is already registered for this webinar." };

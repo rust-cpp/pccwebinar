@@ -21,7 +21,7 @@ export default async function AdministratorPage({ searchParams }: { searchParams
   let dbError = "";
   try {
     await getDatabase();
-    await Webinar.updateOne({ slug: currentWebinar.slug }, { $setOnInsert: currentWebinar }, { upsert: true });
+    await Webinar.updateOne({ slug: currentWebinar.slug }, { $set: currentWebinar }, { upsert: true });
     const filter: Record<string, any> = { webinarSlug: webinar };
     if (q) filter.$or = ["fullName", "ngoName", "contactNumber", "email"].map(field => ({ [field]: { $regex: q, $options: "i" } }));
     [webinars, registrations] = await Promise.all([
