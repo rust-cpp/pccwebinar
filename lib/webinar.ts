@@ -1,5 +1,8 @@
 export const currentWebinar = {
   title: "Capacity Building and Compliance Awareness Training Session of NGOs",
+  eyebrow: "Capacity Building & Compliance Awareness",
+  heroTitle: "Build stronger.",
+  heroAccent: "Serve better.",
   slug: "capacity-building-ngos-july-2026",
   description: "A practical capacity-building and compliance-awareness session for all NGOs — both PCC registered and non-registered organizations are welcome.",
   date: new Date("2026-07-16T11:00:00+05:00"),
@@ -7,5 +10,3 @@ export const currentWebinar = {
   capacity: 250,
   status: "closed",
 };
-
-export const isCurrentWebinarRegistrationOpen = false;

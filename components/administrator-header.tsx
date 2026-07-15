@@ -1,0 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
+import { LogOut } from "lucide-react";
+
+export function AdministratorHeader() { return <header className="border-b border-[#173c29]/20 bg-[#0b2419] text-[#f4f0e6]"><div className="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12"><Link href="/administrator" className="flex items-center gap-4"><div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#f4f0e6] p-2"><Image src="/pcc-logo.svg" alt="PCC" width={44} height={44} className="h-full w-full object-contain"/></div><div><p className="text-base font-bold">Punjab Charities Commission</p><p className="mt-1 text-xs uppercase tracking-[.18em] text-[#b7cbbd]">Webinar administration</p></div></Link><Link prefetch={false} href="/administrator/logout" className="flex items-center gap-2 border-b border-white/30 pb-1 text-sm text-white/70"><LogOut className="h-4 w-4"/>Sign out</Link></div></header>; }
