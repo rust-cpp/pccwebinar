@@ -52,7 +52,7 @@ export function WebinarBuilder({ initial }: { initial: WebinarConfig }) {
     </section>
 
     {(errors.length > 0 || state.message) && <div className={`border p-4 ${state.ok ? "border-[#2f6a49]/25 bg-[#dfe8d7] text-[#1f583a]" : "border-red-700/20 bg-red-50 text-red-800"}`}><div className="flex gap-2 font-semibold">{state.ok && <CheckCircle2 className="h-5 w-5"/>}{state.message || "Please correct these issues:"}</div>{errors.length > 0 && <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{errors.slice(0, 12).map(error => <li key={error}>{error}</li>)}</ul>}</div>}
-    <div className="sticky bottom-4 z-20 flex flex-wrap items-center justify-between gap-3 border border-[#173c29]/20 bg-[#f4f0e6]/95 p-4 shadow-xl backdrop-blur"><a href={`/webinars/${config.slug}`} target="_blank" className="flex items-center gap-2 text-sm font-semibold text-[#365b45]"><Eye className="h-4 w-4"/>Preview public page</a><button disabled={pending} className="flex items-center gap-2 rounded-md bg-[#123d29] px-6 py-3.5 text-sm font-bold text-white disabled:opacity-60"><Save className="h-4 w-4"/>{pending ? "Saving…" : "Save webinar"}</button></div>
+    <div className="sticky bottom-4 z-20 flex flex-wrap items-center justify-between gap-3 border border-[#173c29]/20 bg-[#f4f0e6]/95 p-4 shadow-xl backdrop-blur"><a href={`/webinars/${config.slug}?preview=1`} target="_blank" className="flex items-center gap-2 text-sm font-semibold text-[#365b45]"><Eye className="h-4 w-4"/>Preview public page</a><button disabled={pending} className="flex items-center gap-2 rounded-md bg-[#123d29] px-6 py-3.5 text-sm font-bold text-white disabled:opacity-60"><Save className="h-4 w-4"/>{pending ? "Saving…" : "Save webinar"}</button></div>
   </form>;
 }
 
