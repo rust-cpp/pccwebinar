@@ -11,7 +11,7 @@ const ngoTypes = [
   "Relief & Rehabilitation", "Community Development", "Religious & Charitable", "Other",
 ];
 
-export function RegistrationForm() {
+export function RegistrationForm({ closed = false }: { closed?: boolean }) {
   const [state, action, pending] = useActionState(registerNgo, initial);
   const [ngoType, setNgoType] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -37,7 +37,8 @@ export function RegistrationForm() {
   const field = "mt-2.5 w-full rounded-md border border-[#173c29]/25 bg-transparent px-12 py-4 text-base text-[#12231a] outline-none transition placeholder:text-[#12231a]/35 focus:border-[#173c29] focus:bg-white/40";
 
   return (
-    <form ref={formRef} action={action} className="grid gap-4 lg:grid-cols-2 lg:gap-x-5">
+    <form ref={formRef} action={action}>
+      <fieldset disabled={closed} className="grid gap-4 disabled:cursor-not-allowed lg:grid-cols-2 lg:gap-x-5">
       <label className="block text-base font-semibold text-[#293d31]">Full name<div className="relative"><UserRound className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#44614f]"/><input name="fullName" required minLength={3} placeholder="Enter your full name" className={field}/></div></label>
       <label className="block text-base font-semibold text-[#293d31]">Name of NGO<div className="relative"><Building2 className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#44614f]"/><input name="ngoName" required placeholder="Organization name" className={field}/></div></label>
 
@@ -69,6 +70,7 @@ export function RegistrationForm() {
       {state.message && <div className={`flex gap-2 rounded-md border p-3.5 text-sm lg:col-span-2 ${state.ok ? "border-[#2f6a49]/25 bg-[#dfe8d7] text-[#1f583a]" : "border-red-700/20 bg-red-50 text-red-800"}`}><CheckCircle2 className="h-5 w-5 shrink-0"/>{state.message}</div>}
       <button disabled={pending || state.ok} className="group flex w-full items-center justify-center gap-2 rounded-md bg-[#123d29] px-5 py-4 text-base font-bold text-white transition hover:bg-[#0b2c1c] disabled:cursor-not-allowed disabled:opacity-60 lg:col-span-2">{pending ? "Confirming your seat…" : state.ok ? "Seat confirmed" : "Confirm my seat"}<ArrowRight className="h-5 w-5 transition group-hover:translate-x-1"/></button>
       <p className="text-center text-sm leading-5 text-[#526158] lg:col-span-2">Open to PCC registered and non-registered NGOs. Your details will only be used for webinar coordination.</p>
+      </fieldset>
     </form>
   );
 }

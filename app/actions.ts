@@ -5,12 +5,13 @@ import { revalidatePath } from "next/cache";
 import { getDatabase } from "@/lib/mongodb";
 import { Registration } from "@/models/Registration";
 import { Webinar } from "@/models/Webinar";
-import { currentWebinar } from "@/lib/webinar";
+import { currentWebinar, isCurrentWebinarRegistrationOpen } from "@/lib/webinar";
 import { clearAdminSession, createAdminSession, isAdmin } from "@/lib/auth";
 
 export type FormState = { ok: boolean; message: string };
 
 export async function registerNgo(_: FormState, formData: FormData): Promise<FormState> {
+  if (!isCurrentWebinarRegistrationOpen) return { ok: false, message: "Registrations for this webinar are closed." };
   const fullName = String(formData.get("fullName") || "").trim();
   const ngoName = String(formData.get("ngoName") || "").trim();
   const ngoType = String(formData.get("ngoType") || "").trim();

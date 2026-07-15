@@ -5,4 +5,7 @@ export const currentWebinar = {
   date: new Date("2026-07-16T11:00:00+05:00"),
   venue: "Online webinar",
   capacity: 250,
+  status: "closed",
 };
+
+export const isCurrentWebinarRegistrationOpen = false;

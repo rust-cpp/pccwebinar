@@ -33,7 +33,16 @@ export default function Home() {
             <div className="min-w-0 flex-1"><p className="text-base font-bold text-[#123d29]">Follow the PCC WhatsApp Channel</p><p className="mt-1 text-sm leading-5 text-[#365746]">The webinar joining link will be shared there. Only NGOs registered through this form will be allowed to attend.</p></div>
             <a href="https://whatsapp.com/channel/0029Vb7jNfsFSAswgqgwBp3R" target="_blank" rel="noopener noreferrer" className="flex shrink-0 items-center gap-2 rounded-md bg-[#176b42] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#105536]">Follow now<ExternalLink className="h-4 w-4"/></a>
           </div>
-          <div className="mt-4 border-t-2 border-[#173c29]/20 pt-4"><RegistrationForm/></div>
+          <div className="relative mt-4 border-t-2 border-[#173c29]/20 pt-4">
+            <div className="pointer-events-none select-none blur-[3px] opacity-35" aria-hidden="true"><RegistrationForm closed/></div>
+            <div className="absolute inset-0 z-10 flex items-center justify-center px-4">
+              <div className="w-full max-w-lg rounded-2xl border-2 border-[#173c29] bg-[#f4f0e6]/95 px-6 py-9 text-center shadow-[0_20px_60px_rgba(18,35,26,.22)] backdrop-blur-md">
+                <p className="text-sm font-bold uppercase tracking-[.2em] text-[#526158]">Registration update</p>
+                <h3 className="mt-3 text-4xl font-bold leading-[.95] tracking-[-.045em] text-[#123d29] sm:text-5xl">Registrations are closed.</h3>
+                <p className="mt-4 text-lg font-medium text-[#526158]">Thank you for your interest. See you in the next webinar.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
     </section>
