@@ -6,6 +6,7 @@ const RegistrationSchema = new Schema({
   fullName: { type: String, default: "", trim: true },
   ngoName: { type: String, default: "", trim: true },
   ngoType: { type: String, default: "", trim: true },
+  charityProfile: { type: String, default: "", trim: true },
   pccRegistered: { type: Boolean, default: false },
   contactNumber: { type: String, default: "", trim: true },
   email: { type: String, default: "", trim: true, lowercase: true },

@@ -93,6 +93,7 @@ export async function registerForWebinar(slug: string, _: FormState, formData: F
       fullName: answers.fullName || "",
       ngoName: answers.ngoName || "",
       ngoType: answers.ngoType || "",
+      charityProfile: answers.charityProfile || "",
       contactNumber: answers.contactNumber || undefined,
       email: answers.email || undefined,
       pccRegistered: /^yes/i.test(answers.pccRegistered || ""),
