@@ -2,6 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const RegistrationSchema = new Schema({
   webinarSlug: { type: String, required: true, index: true },
+  occurrenceKey: { type: String, default: "legacy", index: true },
   fullName: { type: String, default: "", trim: true },
   ngoName: { type: String, default: "", trim: true },
   ngoType: { type: String, default: "", trim: true },
@@ -12,10 +13,13 @@ const RegistrationSchema = new Schema({
   attended: { type: Boolean, default: false },
   answers: { type: Map, of: Schema.Types.Mixed, default: {} },
   dedupeTokens: { type: [String], default: [] },
+  ipHash: { type: String, select: false, default: "" },
+  userAgentHash: { type: String, select: false, default: "" },
 }, { timestamps: true });
-RegistrationSchema.index({ webinarSlug: 1, contactNumber: 1 }, { unique: true, partialFilterExpression: { contactNumber: { $type: "string", $gt: "" } } });
-RegistrationSchema.index({ webinarSlug: 1, email: 1 }, { unique: true, partialFilterExpression: { email: { $type: "string", $gt: "" } } });
+RegistrationSchema.index({ webinarSlug: 1, occurrenceKey: 1, contactNumber: 1 }, { unique: true, partialFilterExpression: { contactNumber: { $type: "string", $gt: "" } } });
+RegistrationSchema.index({ webinarSlug: 1, occurrenceKey: 1, email: 1 }, { unique: true, partialFilterExpression: { email: { $type: "string", $gt: "" } } });
 RegistrationSchema.index({ dedupeTokens: 1 }, { unique: true, partialFilterExpression: { "dedupeTokens.0": { $exists: true } } });
+RegistrationSchema.index({ createdAt: -1, ngoName: 1 });
 
 export const Registration = models.Registration || model("Registration", RegistrationSchema);
 

@@ -1,0 +1,12 @@
+"use client";
+
+import { useActionState } from "react";
+import { AlertTriangle, Trash2 } from "lucide-react";
+import { bulkDeleteRegistrationsAction, type BulkDeleteState } from "@/app/actions";
+
+const initial: BulkDeleteState = { ok: false, message: "" };
+const input = "w-full rounded-md border border-[#173c29]/20 bg-[#fffdf7] px-3 py-3 text-sm outline-none focus:border-[#173c29]";
+export function BulkDeleteTool({ webinars, defaults }: { webinars: { slug: string; title: string }[]; defaults: { from: string; to: string } }) {
+  const [state, action, pending] = useActionState(bulkDeleteRegistrationsAction, initial);
+  return <form action={action} className="border border-red-900/20 bg-red-50 p-5"><div className="flex items-start gap-3"><AlertTriangle className="mt-1 h-5 w-5 shrink-0 text-red-800"/><div><h2 className="text-xl font-bold text-red-950">Time-window bulk deletion</h2><p className="mt-1 text-sm leading-6 text-red-900/70">Use the activity timeline to isolate an attack window. Deletion is permanent and affects only records created during this exact period.</p></div></div><div className="mt-5 grid gap-4 md:grid-cols-2"><label><span className="mb-2 block text-sm font-semibold">From (Pakistan time)</span><input name="from" type="datetime-local" required defaultValue={defaults.from} className={input}/></label><label><span className="mb-2 block text-sm font-semibold">To (Pakistan time)</span><input name="to" type="datetime-local" required defaultValue={defaults.to} className={input}/></label><label><span className="mb-2 block text-sm font-semibold">Webinar scope</span><select name="webinarSlug" className={input}><option value="">All webinars</option>{webinars.map(webinar => <option key={webinar.slug} value={webinar.slug}>{webinar.title}</option>)}</select></label><label><span className="mb-2 block text-sm font-semibold">Type DELETE to confirm</span><input name="confirmation" required autoComplete="off" placeholder="DELETE" className={input}/></label></div>{state.message && <p className={`mt-4 border p-3 text-sm ${state.ok ? "border-green-800/20 bg-green-50 text-green-900" : "border-red-800/20 bg-white text-red-900"}`}>{state.message}</p>}<button disabled={pending} className="mt-5 flex items-center gap-2 rounded-md bg-[#8b2f28] px-5 py-3 text-sm font-bold text-white disabled:opacity-50"><Trash2 className="h-4 w-4"/>{pending ? "Deleting…" : "Delete records in this window"}</button></form>;
+}

@@ -5,6 +5,8 @@ import { getDatabase } from "@/lib/mongodb";
 import { Webinar } from "@/models/Webinar";
 import type { Metadata } from "next";
 import { isAdmin } from "@/lib/auth";
+import { issueRegistrationToken } from "@/lib/security";
+import { withNextOccurrence } from "@/lib/recurrence";
 
 export const dynamic = "force-dynamic";
 
@@ -21,5 +23,6 @@ export default async function WebinarPage({ params, searchParams }: { params: Pr
   await getDatabase();
   const webinar = await Webinar.findOne({ slug, ...(preview ? {} : { status: "open" }) }).lean();
   if (!webinar) notFound();
-  return <PublicWebinar webinar={serializeWebinar(JSON.parse(JSON.stringify(webinar)))}/>;
+  const config = withNextOccurrence(serializeWebinar(JSON.parse(JSON.stringify(webinar))));
+  return <PublicWebinar webinar={config} formToken={issueRegistrationToken(config.slug)}/>;
 }

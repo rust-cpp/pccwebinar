@@ -27,6 +27,9 @@ export type WebinarConfig = {
   venue: string;
   capacity: number;
   status: "draft" | "open" | "closed" | "completed";
+  recurringWeekly: boolean;
+  recurrenceWeekday: number;
+  recurrenceTime: string;
   whatsappChannel?: string;
   confirmationMessage?: string;
   closedMessage?: string;

@@ -7,6 +7,13 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; background: #07100c; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
 ::selection { background: #9be15d; color: #07100c; }
+.ticker-track { animation: ticker 28s linear infinite; }
+.ticker-track--reverse { animation-name: ticker-reverse; animation-duration: 34s; }
+.ticker-track--slow { animation-duration: 40s; }
+.ticker-window:hover .ticker-track { animation-play-state: paused; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes ticker-reverse { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
 
 @media (min-width: 1024px) and (max-height: 850px) {
   .event-panel { padding-top: 1.5rem; padding-bottom: 1.5rem; }

@@ -8,7 +8,7 @@ import { validateDynamicAnswers } from "@/lib/validation";
 
 const initial: FormState = { ok: false, message: "", fieldErrors: {} };
 
-export function DynamicRegistrationForm({ slug, fields, closed = false }: { slug: string; fields: WebinarFormField[]; closed?: boolean }) {
+export function DynamicRegistrationForm({ slug, fields, formToken, closed = false }: { slug: string; fields: WebinarFormField[]; formToken: string; closed?: boolean }) {
   const action = registerForWebinar.bind(null, slug);
   const [state, formAction, pending] = useActionState(action, initial);
   const [clientErrors, setClientErrors] = useState<Record<string, string>>({});
@@ -33,6 +33,8 @@ export function DynamicRegistrationForm({ slug, fields, closed = false }: { slug
 
   const errors = { ...clientErrors, ...(state.fieldErrors || {}) };
   return <form ref={formRef} action={formAction} onSubmit={validate} noValidate>
+    <input type="hidden" name="_formToken" value={formToken}/>
+    <label className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">Website<input name="website" type="text" tabIndex={-1} autoComplete="off"/></label>
     <fieldset disabled={closed || pending || state.ok} className="grid gap-4 disabled:cursor-not-allowed lg:grid-cols-2 lg:gap-x-5">
       {fields.map(field => <DynamicField key={field.id} field={field} error={errors[field.key]}/>) }
       {state.message && <div className={`flex gap-2 rounded-md border p-3.5 text-sm lg:col-span-2 ${state.ok ? "border-[#2f6a49]/25 bg-[#dfe8d7] text-[#1f583a]" : "border-red-700/20 bg-red-50 text-red-800"}`}>{state.ok ? <CheckCircle2 className="h-5 w-5 shrink-0"/> : <AlertCircle className="h-5 w-5 shrink-0"/>}{state.message}</div>}

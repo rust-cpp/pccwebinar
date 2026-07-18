@@ -22,8 +22,8 @@ export async function GET(request: NextRequest) {
   const [webinar, records] = await Promise.all([Webinar.findOne({ slug }).lean(), Registration.find({ webinarSlug: slug }).sort({ createdAt: 1 }).lean()]);
   if (!webinar) return NextResponse.json({ error: "Webinar not found" }, { status: 404 });
   const fields = (webinar.formFields?.length ? webinar.formFields : defaultFormFields) as WebinarFormField[];
-  const data = records.map((record, index) => ({ "Sr. No.": index + 1, ...Object.fromEntries(fields.map(field => [field.label, value(record, field)])), "Seat Confirmed": record.seatConfirmed ? "Yes" : "No", "Attended": record.attended ? "Yes" : "No", "Registration Date": new Date(record.createdAt).toLocaleString("en-PK") }));
-  const sheet = XLSX.utils.json_to_sheet(data); sheet["!cols"] = [{ wch: 8 }, ...fields.map(() => ({ wch: 26 })), { wch: 16 }, { wch: 12 }, { wch: 22 }];
+  const data = records.map((record, index) => ({ "Sr. No.": index + 1, "Weekly Session": record.occurrenceKey || "Legacy", ...Object.fromEntries(fields.map(field => [field.label, value(record, field)])), "Seat Confirmed": record.seatConfirmed ? "Yes" : "No", "Attended": record.attended ? "Yes" : "No", "Registration Date": new Date(record.createdAt).toLocaleString("en-PK") }));
+  const sheet = XLSX.utils.json_to_sheet(data); sheet["!cols"] = [{ wch: 8 }, { wch: 16 }, ...fields.map(() => ({ wch: 26 })), { wch: 16 }, { wch: 12 }, { wch: 22 }];
   const details = XLSX.utils.json_to_sheet([{ Title: webinar.title, Date: new Date(webinar.date).toLocaleString("en-PK"), Venue: webinar.venue, Status: webinar.status, Capacity: webinar.capacity, Registrations: records.length }]);
   const book = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(book, details, "Webinar Details"); XLSX.utils.book_append_sheet(book, sheet, "Registrations");
   const buffer = XLSX.write(book, { type: "buffer", bookType: "xlsx" });
