@@ -79,7 +79,7 @@ export async function registerForWebinar(slug: string, _: FormState, formData: F
         const matchedToken = duplicate.dedupeTokens?.find((token: string) => tokenMap.has(token));
         const field = matchedToken ? tokenMap.get(matchedToken) : uniqueFields.find(candidate => String(duplicate[candidate.key] || "") === String(parsed.data[candidate.key]));
         await logSecurityEvent({ type: "duplicate", webinarSlug: slug, occurrenceKey: occurrence.key, ipHash: identity.ipHash, detail: field?.key || "unique-field" });
-        return { ok: false, message: `${field?.label || "This value"} is already registered for the upcoming session.`, fieldErrors: field ? { [field.key]: "Already registered for this Thursday." } : undefined };
+        return { ok: false, message: `${field?.label || "This value"} is already registered for the upcoming session.`, fieldErrors: field ? { [field.key]: "Already registered for this Friday." } : undefined };
       }
     }
     const count = await Registration.countDocuments({ webinarSlug: slug, occurrenceKey: occurrence.key });

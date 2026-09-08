@@ -26,7 +26,7 @@ const WebinarSchema = new Schema({
   capacity: { type: Number, default: 250 },
   status: { type: String, enum: ["draft", "open", "closed", "completed"], default: "open" },
   recurringWeekly: { type: Boolean, default: false },
-  recurrenceWeekday: { type: Number, min: 0, max: 6, default: 4 },
+  recurrenceWeekday: { type: Number, min: 0, max: 6, default: 5 },
   recurrenceTime: { type: String, default: "11:00" },
   whatsappChannel: { type: String, default: "" },
   confirmationMessage: { type: String, default: "Your registration is confirmed." },
