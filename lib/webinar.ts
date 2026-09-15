@@ -5,11 +5,11 @@ export const currentWebinar = {
   heroAccent: "Serve better.",
   slug: "capacity-building-ngos-july-2026",
   description: "A practical capacity-building and compliance-awareness session for all NGOs — both PCC registered and non-registered organizations are welcome.",
-  date: new Date("2026-09-11T11:00:00+05:00"),
+  date: new Date("2026-09-17T11:00:00+05:00"),
   venue: "Online webinar",
   capacity: 250,
   status: "open",
   recurringWeekly: true,
-  recurrenceWeekday: 5,
+  recurrenceWeekday: 4,
   recurrenceTime: "11:00",
 };

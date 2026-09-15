@@ -2,7 +2,7 @@ import { currentWebinar } from "@/lib/webinar";
 import { defaultFormFields, type WebinarConfig } from "@/lib/form-types";
 
 export function serializeWebinar(data: Record<string, unknown>): WebinarConfig {
-  const storedWeekday = Number(data.recurrenceWeekday ?? 5);
+  const storedWeekday = Number(data.recurrenceWeekday ?? 4);
   return {
     _id: data._id ? String(data._id) : undefined,
     title: String(data.title || "NGO Webinar"),
@@ -16,9 +16,9 @@ export function serializeWebinar(data: Record<string, unknown>): WebinarConfig {
     capacity: Number(data.capacity || 250),
     status: (data.status || "closed") as WebinarConfig["status"],
     recurringWeekly: Boolean(data.recurringWeekly),
-    // Existing recurring webinars were previously stored as Thursday (4).
-    // Normalize those legacy records to the new Friday schedule.
-    recurrenceWeekday: Boolean(data.recurringWeekly) && storedWeekday === 4 ? 5 : storedWeekday,
+    // Existing recurring webinars may still be stored as Friday (5).
+    // Normalize those records to the restored Thursday schedule.
+    recurrenceWeekday: Boolean(data.recurringWeekly) && storedWeekday === 5 ? 4 : storedWeekday,
     recurrenceTime: String(data.recurrenceTime || "11:00"),
     whatsappChannel: String(data.whatsappChannel || ""),
     confirmationMessage: String(data.confirmationMessage || "Your registration is confirmed."),
